@@ -1,0 +1,33 @@
+.game {
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+  height: 96vh;
+}
+
+.game__ground-container {
+  width: 750px;
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+.game__player {
+  width: 35px;
+  height: 35px;
+  background-color: black;
+  transform: translate(20px, 33px);
+  transition: all 0.1s ease-in;
+}
+
+.game__ground {
+  width: 12000px;
+  height: auto;
+  -webkit-animation: moveGround 30s steps(4000) infinite;
+}
+
+@-webkit-keyframes moveGround {
+  from { transform: translate(0, 0) }
+  to { transform: translate(-11250px, 0) }
+}
