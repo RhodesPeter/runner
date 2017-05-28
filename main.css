@@ -18,13 +18,21 @@
   height: 35px;
   background-color: black;
   transform: translate(20px, 33px);
-  transition: all 0.1s ease-in;
+  transition: all 0.12s ease-out;
 }
 
 .game__ground {
   width: 12000px;
   height: auto;
   -webkit-animation: moveGround 30s steps(4000) infinite;
+}
+
+.ground-line,
+.obstacle {
+  fill:none;
+  stroke:#000000;
+  stroke-width:0.2;
+  stroke-miterlimit:10;
 }
 
 @-webkit-keyframes moveGround {
