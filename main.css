@@ -24,7 +24,7 @@
 .game__ground {
   width: 12000px;
   height: auto;
-  -webkit-animation: moveGround 30s steps(4000) infinite;
+  -webkit-animation: moveGround 30s steps(50000) infinite paused;
 }
 
 .ground-line,
