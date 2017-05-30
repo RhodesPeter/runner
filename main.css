@@ -5,6 +5,7 @@
   justify-content: center;
   flex-wrap: nowrap;
   height: 96vh;
+  font-family: monospace;
 }
 
 .game__ground-container {
@@ -17,14 +18,14 @@
   width: 35px;
   height: 35px;
   background-color: black;
-  transform: translate(20px, 33px);
+  transform: translate(35px, 33px);
   transition: all 0.12s ease-out;
 }
 
 .game__ground {
   width: 12000px;
   height: auto;
-  -webkit-animation: moveGround 30s steps(4000) infinite;
+  -webkit-animation: moveGround 30s steps(50000) infinite paused;
 }
 
 .ground-line,
@@ -33,6 +34,29 @@
   stroke:#000000;
   stroke-width:0.2;
   stroke-miterlimit:10;
+}
+
+.game__score {
+  text-align: right;
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+}
+
+.game__game-over {
+  text-align: center;
+  margin: 0;
+  font-size: 2.5rem;
+  margin-bottom: -15px;
+}
+
+.game__start-message {
+  display: block;
+  margin: 10px auto 0 auto;
+  font-size: 1.6rem;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 @-webkit-keyframes moveGround {
