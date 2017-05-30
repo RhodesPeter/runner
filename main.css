@@ -25,13 +25,26 @@
 .game__ground {
   width: 12000px;
   height: auto;
-  -webkit-animation: moveGround 30s steps(50000) infinite paused;
+  -webkit-animation: moveGround 25s ease-in 0s normal 1 none paused,
+                     moveGround 16s linear 25s normal infinite none running;
+}
+
+@-webkit-keyframes moveGround {
+  from { transform: translate(0, 0) }
+  to { transform: translate(-11250px, 0) }
 }
 
 .ground-line,
 .obstacle {
   fill:none;
   stroke:#000000;
+  stroke-width:0.2;
+  stroke-miterlimit:10;
+}
+
+.obstacle-red {
+  fill:none;
+  stroke:red;
   stroke-width:0.2;
   stroke-miterlimit:10;
 }
@@ -57,9 +70,4 @@
 
 .hidden {
   visibility: hidden;
-}
-
-@-webkit-keyframes moveGround {
-  from { transform: translate(0, 0) }
-  to { transform: translate(-11250px, 0) }
 }

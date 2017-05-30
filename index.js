@@ -19,16 +19,6 @@ function checkKey(e) {
   }
 }
 
-function controlGameSpeed() {
-  var seconds = 30;
-  increaseSpeed = setInterval(function () {
-    if (seconds > 19){
-      seconds -= .0035;
-      ground.style.webkitAnimationDuration = seconds + 's';
-    }
-  }, 10);
-}
-
 var checkPlayerPos = setInterval(function () {
   var playerPos = player.getBoundingClientRect();
   for(var i = 0; i < obstacles.length; i++) {
@@ -54,7 +44,6 @@ function addScore() {
 function startGame() {
   if (!isGameOver && !gameOngoing){
     ground.style.webkitAnimationPlayState = 'running';
-    controlGameSpeed();
     addScore();
     gameOngoing = true;
   }
