@@ -10,6 +10,7 @@ var playerJumping = false;
 var isGameOver = false;
 var gameOngoing = false;
 var increaseSpeed = null;
+var scoreInterval = null;
 
 function checkKey(e) {
   if (e.keyCode === 38) {
@@ -40,20 +41,31 @@ var checkPlayerPos = setInterval(function () {
   }
 }, 10);
 
+function addScore() {
+  var scoreBoard = document.getElementsByClassName('game__score')[0];
+  var score = '00000';
+  scoreInterval = setInterval(function () {
+    parseInt(score, 8)
+    score++;
+    scoreBoard.innerHTML = ('000000' + score).slice(-5);
+  }, 100);
+}
+
 function startGame() {
   if (!isGameOver && !gameOngoing){
     ground.style.webkitAnimationPlayState = 'running';
     controlGameSpeed();
+    addScore();
     gameOngoing = true;
   }
 }
 
 function playerJump () {
-  if (!playerJumping){
+  if (!playerJumping && !isGameOver){
     playerJumping = true;
-    player.style.transform = 'translate(20px, -20px)';
+    player.style.transform = 'translate(35px, -20px)';
     setTimeout(function () {
-      player.style.transform = 'translate(20px, 33px)';
+      player.style.transform = 'translate(35px, 33px)';
       setTimeout(function () {
         playerJumping = false;
       }, 190);
@@ -61,12 +73,18 @@ function playerJump () {
   }
 }
 
+function addGameOverMessage(){
+  document.getElementsByClassName('game__game-over')[0].classList.remove('hidden');
+}
+
 function gameOver (element) {
   ground.style.webkitAnimationPlayState = 'paused';
   clearInterval(checkPlayerPos);
   clearInterval(increaseSpeed);
+  clearInterval(scoreInterval);
   isGameOver = true;
-  console.log('GAME OVER!');
+  gameOngoing = false;
+  addGameOverMessage();
 }
 
 })();
