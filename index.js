@@ -11,25 +11,32 @@ var isGameOver = false;
 var gameOngoing = false;
 var increaseSpeed = null;
 var scoreInterval = null;
+var checkPlayerPos = null;
 
 function checkKey(e) {
   if (e.keyCode === 38) {
-    startGame();
     playerJump();
+    if (!isGameOver){
+      startGame();
+    } else {
+      restartGame();
+    }
   }
 }
 
-var checkPlayerPos = setInterval(function () {
-  var playerPos = player.getBoundingClientRect();
-  for(var i = 0; i < obstacles.length; i++) {
-    var obstaclePos = obstacles[i].getBoundingClientRect();
-    if (obstaclePos.left > playerPos.left && obstaclePos.left < playerPos.right){
-      if (obstaclePos.top <= playerPos.bottom){
-        gameOver();
+function checkPos(){
+    checkPlayerPos = setInterval(function () {
+    var playerPos = player.getBoundingClientRect();
+    for(var i = 0; i < obstacles.length; i++) {
+      var obstaclePos = obstacles[i].getBoundingClientRect();
+      if (obstaclePos.left > playerPos.left && obstaclePos.left < playerPos.right){
+        if (obstaclePos.top <= playerPos.bottom){
+          gameOver();
+        }
       }
     }
-  }
-}, 10);
+  }, 10);
+}
 
 function addScore() {
   var scoreBoard = document.getElementsByClassName('game__score')[0];
@@ -42,11 +49,19 @@ function addScore() {
 }
 
 function startGame() {
-  if (!isGameOver && !gameOngoing){
+  if (!gameOngoing){
     ground.style.webkitAnimationPlayState = 'running';
     addScore();
+    checkPos();
     gameOngoing = true;
   }
+}
+
+function restartGame() {
+  // this css line below isn't working
+  ground.style.transform = 'translate(0, 0)';
+  toggleGameOverMessage();
+  startGame();
 }
 
 function playerJump () {
@@ -62,8 +77,8 @@ function playerJump () {
   }
 }
 
-function addGameOverMessage(){
-  document.getElementsByClassName('game__game-over')[0].classList.remove('hidden');
+function toggleGameOverMessage(){
+  document.getElementsByClassName('game__game-over')[0].classList.toggle('hidden');
 }
 
 function gameOver (element) {
@@ -73,7 +88,7 @@ function gameOver (element) {
   clearInterval(scoreInterval);
   isGameOver = true;
   gameOngoing = false;
-  addGameOverMessage();
+  toggleGameOverMessage();
 }
 
 })();

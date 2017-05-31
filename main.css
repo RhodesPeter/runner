@@ -42,13 +42,6 @@
   stroke-miterlimit:10;
 }
 
-.obstacle-red {
-  fill:none;
-  stroke:red;
-  stroke-width:0.2;
-  stroke-miterlimit:10;
-}
-
 .game__score {
   text-align: right;
   margin: 0 0 10px 0;
