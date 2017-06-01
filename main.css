@@ -10,7 +10,7 @@
 
 .game__ground-container {
   width: 750px;
-  padding-top: 20px;
+  height: 250px;
   overflow: hidden;
 }
 
@@ -25,7 +25,16 @@
 .game__ground {
   width: 12000px;
   height: auto;
-  -webkit-animation: moveGround 30s steps(50000) infinite paused;
+}
+
+.game__ground--animated {
+  -webkit-animation: moveGround 25s ease-in 0s normal 1 none paused,
+                     moveGround 16s linear 25s normal infinite none paused;
+}
+
+@-webkit-keyframes moveGround {
+  from { transform: translate(0, 0) }
+  to { transform: translate(-11250px, 0) }
 }
 
 .ground-line,
@@ -38,28 +47,24 @@
 
 .game__score {
   text-align: right;
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 1.8rem;
 }
 
 .game__game-over {
   text-align: center;
-  margin: 0;
+  margin: 5px;
   font-size: 2.5rem;
   margin-bottom: -15px;
 }
 
 .game__start-message {
   display: block;
-  margin: 10px auto 0 auto;
+  margin: 15px auto 0 auto;
   font-size: 1.6rem;
+  text-align: center;
 }
 
 .hidden {
   visibility: hidden;
-}
-
-@-webkit-keyframes moveGround {
-  from { transform: translate(0, 0) }
-  to { transform: translate(-11250px, 0) }
 }
