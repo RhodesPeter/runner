@@ -1,19 +1,19 @@
 "use strict";
 
-(function () {
+(global => {
 
-  document.onkeydown = checkKey;
-  var player = document.getElementsByClassName('game__player')[0];
-  var obstacles = document.getElementsByClassName('obstacle');
-  var ground = document.getElementsByClassName('game__ground')[0];
-  var startMessage = document.getElementsByClassName('game__start-message')[0];
-  var playerJumping = false;
-  var isGameOver = false;
-  var gameOngoing = false;
-  var scoreInterval = null;
-  var checkPlayerPos = null;
+  const player = document.getElementsByClassName('game__player')[0];
+  const obstacles = document.getElementsByClassName('obstacle');
+  const ground = document.getElementsByClassName('game__ground')[0];
+  const startMessage = document.getElementsByClassName('game__start-message')[0];
+  let playerJumping = false;
+  let isGameOver = false;
+  let gameOngoing = false;
+  let scoreInterval = null;
+  let checkPlayerPos = null;
+  document.addEventListener('keydown', function(){ checkKey(event) });
 
-  function checkKey(e) {
+  const checkKey = e => {
     if (e.keyCode === 38) {
       playerJump();
       if (isGameOver){
@@ -24,11 +24,11 @@
     }
   }
 
-  function checkPos(){
-      checkPlayerPos = setInterval(function () {
-      var playerPos = player.getBoundingClientRect();
+  const checkPos = () => {
+    checkPlayerPos = setInterval(() => {
+      const playerPos = player.getBoundingClientRect();
       for(var i = 0; i < obstacles.length; i++) {
-        var obstaclePos = obstacles[i].getBoundingClientRect();
+        let obstaclePos = obstacles[i].getBoundingClientRect();
         if (obstaclePos.left > playerPos.left && obstaclePos.left < playerPos.right){
           if (obstaclePos.top <= playerPos.bottom){ gameOver(); }
         }
@@ -36,17 +36,17 @@
     }, 10);
   }
 
-  function addScore() {
-    var scoreBoard = document.getElementsByClassName('game__score')[0];
-    var score = '00000';
-    scoreInterval = setInterval(function () {
+  const addScore = () => {
+    const scoreBoard = document.getElementsByClassName('game__score')[0];
+    let score = '00000';
+    scoreInterval = setInterval(() => {
       parseInt(score, 8);
       score++;
       scoreBoard.innerHTML = ('000000' + score).slice(-5);
     }, 100);
   }
 
-  function startGame() {
+  const startGame = () => {
     ground.style.webkitAnimationPlayState = 'running';
     startMessage.classList.add('hidden');
     ground.classList.add('game__ground--animated');
@@ -55,33 +55,33 @@
     gameOngoing = true;
   }
 
-  function restartGame() {
+  const restartGame = () => {
     ground.classList.remove('game__ground--animated');
     isGameOver = false;
     toggleGameOverMessage();
-    setTimeout(function () {
+    setTimeout(() => {
       startGame();
     }, 10);
   }
 
-  function playerJump () {
+  const playerJump = () => {
     if (!playerJumping){
       playerJumping = true;
       player.style.transform = 'translate(35px, -20px)';
-      setTimeout(function () {
+      setTimeout(() => {
         player.style.transform = 'translate(35px, 33px)';
-        setTimeout(function () {
+        setTimeout(() => {
           playerJumping = false;
         }, 190);
       }, 230);
     }
   }
 
-  function toggleGameOverMessage(){
+  const toggleGameOverMessage = () => {
     document.getElementsByClassName('game__game-over')[0].classList.toggle('hidden');
   }
 
-  function gameOver() {
+  const gameOver = () => {
     clearInterval(checkPlayerPos);
     clearInterval(scoreInterval);
     isGameOver = true;
@@ -91,4 +91,4 @@
     ground.style.webkitAnimationPlayState = 'paused';
   }
 
-})();
+})(window);

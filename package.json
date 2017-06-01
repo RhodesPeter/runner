@@ -1,0 +1,24 @@
+{
+  "name": "runner",
+  "version": "1.0.0",
+  "description": "A homage to the Google T-Rex",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel index.js -d lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhodesPeter/runner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RhodesPeter/runner/issues"
+  },
+  "homepage": "https://github.com/RhodesPeter/runner#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.1"
+  }
+}
