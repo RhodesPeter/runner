@@ -45,22 +45,33 @@
   stroke-miterlimit:10;
 }
 
-.game__score {
+.game__score-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.game__score,
+.game__highest-score {
   text-align: right;
   margin: 0;
   font-size: 1.8rem;
+  display: inline;
+}
+
+.game__score {
+  margin-left: 15px;
 }
 
 .game__game-over {
   text-align: center;
-  margin: 5px;
+  margin: 15px 5px 5px 5px;
   font-size: 2.5rem;
-  margin-bottom: -15px;
+  margin-bottom: -25px;
 }
 
 .game__start-message {
   display: block;
-  margin: 15px auto 0 auto;
+  margin: 20px auto -20px auto;
   font-size: 1.6rem;
   text-align: center;
 }

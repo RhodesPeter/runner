@@ -11,6 +11,8 @@
   let gameOngoing = false;
   let scoreInterval = null;
   let checkPlayerPos = null;
+  let gameScore = 0;
+  let highestScore = 0;
   document.addEventListener('keydown', function(){ checkKey(event) });
 
   const checkKey = e => {
@@ -42,7 +44,8 @@
     scoreInterval = setInterval(() => {
       parseInt(score, 8);
       score++;
-      scoreBoard.innerHTML = ('000000' + score).slice(-5);
+      gameScore = ('000000' + score).slice(-5);
+      scoreBoard.innerHTML = gameScore;
     }, 100);
   }
 
@@ -87,8 +90,16 @@
     isGameOver = true;
     gameOngoing = false;
     toggleGameOverMessage();
+    addHighestScore();
     startMessage.classList.remove('hidden');
     ground.style.webkitAnimationPlayState = 'paused';
   }
+
+  const addHighestScore = () => {
+    const highestScoreDiv = document.getElementsByClassName('game__highest-score')[0];
+    highestScoreDiv.classList.remove('hidden');
+    highestScore = gameScore > highestScore ? gameScore : highestScore;
+    highestScoreDiv.innerHTML = `HI ${highestScore}`;
+  };
 
 })(window);

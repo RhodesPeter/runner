@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel index.js -d lib",
+    "autoBuild": "babel index.js --watch --out-file lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
