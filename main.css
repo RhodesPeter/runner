@@ -32,7 +32,7 @@
                      moveGround 16s linear 25s normal infinite none paused;
 }
 
-@-webkit-keyframes moveGround {
+@keyframes moveGround {
   from { transform: translate(0, 0) }
   to { transform: translate(-11250px, 0) }
 }
