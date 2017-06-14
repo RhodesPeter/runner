@@ -46,6 +46,7 @@
     var scoreBoard = document.getElementsByClassName('game__score')[0];
     var score = '00000';
     scoreInterval = setInterval(function () {
+      animatePlayer();
       parseInt(score, 8);
       score++;
       gameScore = ('000000' + score).slice(-5);
@@ -74,7 +75,7 @@
   var playerJump = function playerJump() {
     if (!playerJumping) {
       playerJumping = true;
-      player.style.transform = 'translate(35px, -20px)';
+      player.style.transform = 'translate(35px, -45px)';
       setTimeout(function () {
         player.style.transform = 'translate(35px, 33px)';
         setTimeout(function () {
@@ -104,5 +105,9 @@
     highestScoreDiv.classList.remove('hidden');
     highestScore = gameScore > highestScore ? gameScore : highestScore;
     highestScoreDiv.innerHTML = 'HI ' + highestScore;
+  };
+
+  var animatePlayer = function animatePlayer() {
+    player.classList.toggle('game__player--running');
   };
 })(window);

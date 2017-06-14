@@ -15,11 +15,17 @@
 }
 
 .game__player {
-  width: 35px;
-  height: 35px;
-  background-color: black;
+  width: 40px;
+  height: 60px;
+  background-image: url("../assets/runners.png");
+  background-size: cover;
+  background-position: 0;
   transform: translate(35px, 33px);
-  transition: all 0.12s ease-out;
+  transition: transform 0.12s cubic-bezier(0, 0.3, 0.07, 0.89);
+}
+
+.game__player--running {
+  background-position: -40px;
 }
 
 .game__ground {
