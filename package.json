@@ -7,7 +7,9 @@
     "babel": "babel index.js -d build",
     "babelWatch": "babel index.js --watch --out-file build/index.js",
     "postCss": "postcss *.css --use autoprefixer -d build",
-    "build": "babel index.js -d build && postcss *.css --use autoprefixer -d build"
+    "build": "babel index.js -d build && postcss *.css --use autoprefixer -d build",
+    "uglify": "uglifyjs build/index.js --output build/production.js",
+    "buildProject": "babel index.js -d build && postcss *.css --use autoprefixer -d build && uglifyjs build/index.js --output build/production.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
     "autoprefixer": "^7.1.1",
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.1",
-    "postcss-cli": "^4.0.0"
+    "postcss-cli": "^4.0.0",
+    "uglify-js": "^3.0.15"
   }
 }
