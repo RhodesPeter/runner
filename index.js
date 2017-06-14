@@ -42,6 +42,7 @@
     const scoreBoard = document.getElementsByClassName('game__score')[0];
     let score = '00000';
     scoreInterval = setInterval(() => {
+      animatePlayer();
       parseInt(score, 8);
       score++;
       gameScore = ('000000' + score).slice(-5);
@@ -70,7 +71,7 @@
   const playerJump = () => {
     if (!playerJumping){
       playerJumping = true;
-      player.style.transform = 'translate(35px, -20px)';
+      player.style.transform = 'translate(35px, -45px)';
       setTimeout(() => {
         player.style.transform = 'translate(35px, 33px)';
         setTimeout(() => {
@@ -100,6 +101,10 @@
     highestScoreDiv.classList.remove('hidden');
     highestScore = gameScore > highestScore ? gameScore : highestScore;
     highestScoreDiv.innerHTML = `HI ${highestScore}`;
-  };
+  }
+
+  const animatePlayer = () => {
+    player.classList.toggle('game__player--running');
+  }
 
 })(window);
