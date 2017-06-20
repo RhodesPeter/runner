@@ -13,6 +13,13 @@
   let checkPlayerPos = null;
   let gameScore = 0;
   let highestScore = 0;
+  let score = '00000';
+  let runCount = 0;
+
+  const context = new AudioContext();
+  const osc = context.createOscillator();
+  osc.start();
+  
   document.addEventListener('keydown', function(){ checkKey(event) });
 
   const checkKey = e => {
@@ -40,13 +47,17 @@
 
   const addScore = () => {
     const scoreBoard = document.getElementsByClassName('game__score')[0];
-    let score = '00000';
+    parseInt(score, 8);
+    score++;
+    gameScore = ('000000' + score).slice(-5);
+    scoreBoard.innerHTML = gameScore;
+  }
+
+  const running = () => {
     scoreInterval = setInterval(() => {
+      addScore();
       animatePlayer();
-      parseInt(score, 8);
-      score++;
-      gameScore = ('000000' + score).slice(-5);
-      scoreBoard.innerHTML = gameScore;
+      runningSound();
     }, 100);
   }
 
@@ -54,8 +65,9 @@
     ground.style.webkitAnimationPlayState = 'running';
     startMessage.classList.add('hidden');
     ground.classList.add('game__ground--animated');
-    addScore();
+    running();
     checkPos();
+    startSound();
     gameOngoing = true;
   }
 
@@ -92,6 +104,7 @@
     gameOngoing = false;
     toggleGameOverMessage();
     addHighestScore();
+    stopSound();
     startMessage.classList.remove('hidden');
     ground.style.webkitAnimationPlayState = 'paused';
   }
@@ -105,6 +118,19 @@
 
   const animatePlayer = () => {
     player.classList.toggle('game__player--running');
+  }
+
+  const startSound = () => {
+    osc.connect(context.destination);
+  }
+
+  const stopSound = () => {
+    osc.disconnect();
+  }
+
+  const runningSound = () => {
+    runCount % 2 === 0 ? osc.frequency.value = 150 : osc.frequency.value = 200;
+    runCount++;
   }
 
 })(window);

@@ -13,6 +13,8 @@
   var checkPlayerPos = null;
   var gameScore = 0;
   var highestScore = 0;
+  var score = '00000';
+  var runCount = 0;
   document.addEventListener('keydown', function () {
     checkKey(event);
   });
@@ -44,13 +46,17 @@
 
   var addScore = function addScore() {
     var scoreBoard = document.getElementsByClassName('game__score')[0];
-    var score = '00000';
+    parseInt(score, 8);
+    score++;
+    gameScore = ('000000' + score).slice(-5);
+    scoreBoard.innerHTML = gameScore;
+  };
+
+  var running = function running() {
     scoreInterval = setInterval(function () {
+      addScore();
       animatePlayer();
-      parseInt(score, 8);
-      score++;
-      gameScore = ('000000' + score).slice(-5);
-      scoreBoard.innerHTML = gameScore;
+      runningSound();
     }, 100);
   };
 
@@ -58,8 +64,9 @@
     ground.style.webkitAnimationPlayState = 'running';
     startMessage.classList.add('hidden');
     ground.classList.add('game__ground--animated');
-    addScore();
+    running();
     checkPos();
+    startSound();
     gameOngoing = true;
   };
 
@@ -96,6 +103,7 @@
     gameOngoing = false;
     toggleGameOverMessage();
     addHighestScore();
+    stopSound();
     startMessage.classList.remove('hidden');
     ground.style.webkitAnimationPlayState = 'paused';
   };
@@ -109,5 +117,22 @@
 
   var animatePlayer = function animatePlayer() {
     player.classList.toggle('game__player--running');
+  };
+
+  var context = new AudioContext();
+  var osc = context.createOscillator();
+  osc.start();
+
+  var startSound = function startSound() {
+    osc.connect(context.destination);
+  };
+
+  var stopSound = function stopSound() {
+    osc.disconnect();
+  };
+
+  var runningSound = function runningSound() {
+    runCount % 2 === 0 ? osc.frequency.value = 150 : osc.frequency.value = 200;
+    runCount++;
   };
 })(window);
