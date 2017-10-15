@@ -66,6 +66,7 @@
 
 .game__score {
   margin-left: 15px;
+  background-color: yellow;
 }
 
 .game__game-over {
