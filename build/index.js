@@ -15,8 +15,18 @@
   var highestScore = 0;
   var score = '00000';
   var runCount = 0;
-  document.addEventListener('keydown', function () {
-    checkKey(event);
+  var context = '';
+  var osc = '';
+  var webAudio = window.webkitAudioContext || window.AudioContext;
+
+  if (webAudio) {
+    context = new (window.AudioContext || window.webkitAudioContext)();
+    osc = context.createOscillator();
+    osc.start();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    return checkKey(e);
   });
 
   var checkKey = function checkKey(e) {
@@ -119,10 +129,6 @@
     player.classList.toggle('game__player--running');
   };
 
-  var context = new AudioContext();
-  var osc = context.createOscillator();
-  osc.start();
-
   var startSound = function startSound() {
     osc.connect(context.destination);
   };
@@ -132,7 +138,7 @@
   };
 
   var runningSound = function runningSound() {
-    runCount % 2 === 0 ? osc.frequency.value = 150 : osc.frequency.value = 200;
+    runCount % 2 === 0 ? osc.frequency.setValueAtTime(400, 0, 0.5) : osc.frequency.setValueAtTime(200, 0, 0.5);
     runCount++;
   };
 })(window);
