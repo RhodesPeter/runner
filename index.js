@@ -15,12 +15,17 @@
   let highestScore = 0;
   let score = '00000';
   let runCount = 0;
+  let context = '';
+  let osc = '';
+  const webAudio = window.webkitAudioContext || window.AudioContext;
 
-  const context = new AudioContext();
-  const osc = context.createOscillator();
-  osc.start();
-  
-  document.addEventListener('keydown', function(){ checkKey(event) });
+  if (webAudio){
+    context = new (window.AudioContext || window.webkitAudioContext)();
+    osc = context.createOscillator();
+    osc.start();
+  }
+
+  document.addEventListener('keydown', e => checkKey(e));
 
   const checkKey = e => {
     if (e.keyCode === 38) {
@@ -129,7 +134,7 @@
   }
 
   const runningSound = () => {
-    runCount % 2 === 0 ? osc.frequency.value = 150 : osc.frequency.value = 200;
+    runCount % 2 === 0 ? osc.frequency.setValueAtTime(400, 0, 0.5) : osc.frequency.setValueAtTime(200, 0, 0.5);
     runCount++;
   }
 
